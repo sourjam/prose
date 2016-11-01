@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, IndexRoute, Link } from 'react-router';
 import App from './appComponent';
+import Read from './readComponent';
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,18 +17,21 @@ class Home extends React.Component {
   }
 }
 
-class Read extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log('hi read')
-  }
-  componentDidMount() {
-    console.log('layout mounted')
-  }
-  render() {
-    return <div>Read</div>
-  }
-}
+// class Read extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     console.log('hi read')
+//   }
+//   componentDidMount() {
+//     console.log('layout mounted')
+//   }
+//   clickHandler() {
+//     console.log('click read')
+//   }
+//   render() {
+//     return <div onClick={this.clickHandler}>Read</div>
+//   }
+// }
 
 export default (
   <div>

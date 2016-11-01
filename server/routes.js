@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute, Link } from 'react-router';
 import App from './views/appComponent';
+import Read from './views/readComponent';
 
 class Home extends React.Component {
   render() {
@@ -8,15 +9,15 @@ class Home extends React.Component {
   }
 }
 
-class Read extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log('hi')
-  }
-  render() {
-    return <div>Read</div>
-  }
-}
+// class Read extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     console.log('hi')
+//   }
+//   render() {
+//     return <div>Read</div>
+//   }
+// }
 
 export default (
   <div>

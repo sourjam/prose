@@ -7,7 +7,7 @@ export default ({ body, title, json }) => {
       </head>
 
       <body>
-        <div id="root">${body}</div>
+        <div id="navbar">${body}</div>
         <div id="content"></div>
       </body>
       <script src="/bundle.js"></script>

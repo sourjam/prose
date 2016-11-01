@@ -10,7 +10,7 @@ class Content extends React.Component {
     console.log('content click')
   }
   render() {
-    return <div onClick={this.clickHandler.bind(this)}> content </div>
+    return <div onClick={this.clickHandler}> content </div>
   }
 }
 
@@ -18,13 +18,10 @@ export default class Layout extends React.Component {
   componentDidMount() {
     console.log('layout mounted')
   }
-  clickHandler() {
-    console.log('layout click')
-  }
   render() {
     return (
       <div>
-        <h1 onClick={this.clickHandler.bind(this)}>Layout</h1>
+        <h1 onClick={this.clickHandler}>Layout</h1>
         <ul>
           <li><Link to="home">Home</Link></li>
           <li><Link to="read">Read</Link></li>
