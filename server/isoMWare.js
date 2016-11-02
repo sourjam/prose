@@ -3,15 +3,13 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import rootTemplate from './views/rootTemplate';
-
+import rootComponent from './views/rootComponent';
 function handleRouter(res, props) {
-  console.log('got dis', props.params)
-  const html = renderToString(<RouterContext {...props}/>);
-  console.log('html', html)
+  // const html = renderToString(<RouterContext {...props}/>);
   // res.render('index', {
   //     root: html,
   //   });
-
+  const html = renderToString(rootComponent);
   res.send(rootTemplate({
     body: html,
     title: 'root template',

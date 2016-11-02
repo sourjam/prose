@@ -7,7 +7,7 @@ export default class Read extends React.Component {
     console.log('hi read')
   }
   componentDidMount() {
-    console.log('layout mounted')
+    console.log('read mounted')
   }
   clickHandler() {
     console.log('click read')

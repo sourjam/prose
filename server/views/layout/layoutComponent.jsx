@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
-class Content extends React.Component {
-  componentDidMount() {
-    console.log('content mounted')
-  }
-  clickHandler() {
-    console.log('content click')
-  }
-  render() {
-    return <div onClick={this.clickHandler}> content </div>
-  }
-}
+// class Content extends React.Component {
+//   componentDidMount() {
+//     console.log('content mounted')
+//   }
+//   clickHandler() {
+//     console.log('content click')
+//   }
+//   render() {
+//     return <div onClick={this.clickHandler}> content </div>
+//   }
+// }
 
 export default class Layout extends React.Component {
   componentDidMount() {
@@ -23,7 +23,6 @@ export default class Layout extends React.Component {
       <div>
         <h1 onClick={this.clickHandler}>Layout</h1>
         <ul>
-          <li><Link to="home">Home</Link></li>
           <li><Link to="read">Read</Link></li>
           <li><Link to="read/1">Read 1</Link></li>
         </ul>
@@ -34,8 +33,8 @@ export default class Layout extends React.Component {
 
 try {
   if (window) {
-    console.log('client from app')
-    ReactDOM.render(<Content/>, document.getElementById('content'))
+    console.log('layout from app')
+    // ReactDOM.render(<Content/>, document.getElementById('content'))
   }
 }
 catch(e) {
