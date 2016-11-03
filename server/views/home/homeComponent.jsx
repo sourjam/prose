@@ -1,10 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router';
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('got props', props)
+  }
   componentDidMount() {
     console.log('home mounted')
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log('updated', prevProps)
+  }
+
+  componentWillUnmount() {
+    console.log('unmounting?')
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('next', nextProps)
   }
   render() {
     return (
@@ -15,12 +30,12 @@ export default class Home extends React.Component {
   }
 }
 
-try {
-  if (window) {
-    console.log('client from app')
-    ReactDOM.render(<Home/>, document.getElementById('content'))
-  }
-}
-catch(e) {
+// try {
+//   if (window) {
+//     console.log('home from app')
+//     ReactDOM.render(<Home/>, document.getElementById('home'))
+//   }
+// }
+// catch(e) {
 
-}
+// }

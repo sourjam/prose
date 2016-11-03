@@ -16,7 +16,7 @@ class Content extends React.Component {
 
 export default class Compose extends React.Component {
   componentDidMount() {
-    console.log('layout mounted')
+    console.log('compose mounted')
   }
   render() {
     return (
@@ -27,12 +27,11 @@ export default class Compose extends React.Component {
   }
 }
 
-try {
-  if (window) {
-    console.log('client from app')
-    ReactDOM.render(<Compose/>, document.getElementById('content'))
-  }
-}
-catch(e) {
+// try {
+//   if (window) {
+//     ReactDOM.render(<Compose/>, document.getElementById('compose'))
+//   }
+// }
+// catch(e) {
 
-}
+// }

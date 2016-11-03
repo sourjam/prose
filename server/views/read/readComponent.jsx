@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+console.log('rad')
+
 export default class Read extends React.Component {
   constructor(props) {
     super(props)
-    console.log('hi read')
   }
   componentDidMount() {
     console.log('read mounted')
@@ -13,15 +14,20 @@ export default class Read extends React.Component {
     console.log('click read')
   }
   render() {
-    return <div onClick={this.clickHandler}>Read</div>
+    return (
+      <div>
+        <div onClick={this.clickHandler}>Read component</div>
+      </div>
+    )
   }
 }
 
-try {
-  if (window) {
-    ReactDOM.render(<Read/>, document.getElementById('content'))
-  }
-}
-catch(e) {
+// try {
+//   if (window) {
+//     console.log('read from app')
+//     ReactDOM.render(<Read/>, document.getElementById('read'))
+//   }
+// }
+// catch(e) {
 
-}
+// }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-import routes from './routes';
+
+import routes from './views/routes';
 import rootTemplate from './views/rootTemplate';
 import rootComponent from './views/rootComponent';
+
 function handleRouter(res, props) {
   // const html = renderToString(<RouterContext {...props}/>);
   // res.render('index', {
