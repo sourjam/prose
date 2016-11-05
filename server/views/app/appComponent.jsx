@@ -11,8 +11,8 @@ class App extends Component {
       <div>
         <h2>App Component</h2>
         <Link to="/"> Home </Link>
-        <Link to="read">Read</Link>
-        <Link to="compose">Compose</Link>
+        <Link to="/read">Read</Link>
+        <Link to="/compose">Compose</Link>
         { this.props.children }
       </div>
     )
