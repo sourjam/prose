@@ -6,17 +6,28 @@ import routes from './views/routes';
 import rootTemplate from './views/rootTemplate';
 import rootComponent from './views/rootComponent';
 
+const path = require('path');
+
 function handleRouter(res, props) {
-  // const html = renderToString(<RouterContext {...props}/>);
+  const html = renderToString(<RouterContext {...props}/>);
   // res.render('index', {
   //     root: html,
   //   });
-  const html = renderToString(rootComponent);
-  res.send(rootTemplate({
-    body: html,
-    title: 'root template',
-    json: ['hello again']
-  }))
+  console.log(props.location.pathname)
+  if (props.location.pathname.includes('compose')) {
+  } else {
+    res.send(rootTemplate({
+      body: html,
+      title: 'routered',
+      json: ['hello router']
+    }))
+  }
+  // const html = renderToString(rootComponent);
+  // res.send(rootTemplate({
+  //   body: html,
+  //   title: 'root template',
+  //   json: ['hello again']
+  // }))
 }
 
 function handleRedirect(res, redirect) {

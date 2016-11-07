@@ -3,13 +3,14 @@ var webpackUglifyJsPlugin = require('webpack-uglify-js-plugin');
 var path = require('path');
 
 module.exports = {
-  entry: [
-    './server/views/rootComponent.jsx'
-  ],
+  entry: {
+    home: './server/views/rootComponent.jsx',
+    compose: './server/views/compose/composeComponent.jsx'
+  },
   output: {
     path: path.join(__dirname, '/server/views/'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].entry.js'
   },
   module: {
     loaders: [{
@@ -19,6 +20,10 @@ module.exports = {
       query: {
         presets: ['react', 'es2015', 'stage-0']
       }
+    },
+    {
+      test: /\.css?$/,
+      loader: "style!css"
     }]
   },
   resolve: {

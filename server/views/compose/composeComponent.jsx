@@ -1,37 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router';
+import RTE from 'react-rte';
 
-class Content extends React.Component {
-  componentDidMount() {
-    console.log('content mounted')
-  }
-  clickHandler() {
-    console.log('content click')
-  }
-  render() {
-    return <div onClick={this.clickHandler}> content </div>
-  }
+console.log('compose')
+
+let textareaStyle = {
+  width: '50%',
+  height: '300px'
 }
 
 export default class Compose extends React.Component {
+  constructor(props){
+    super(props);
+    console.log('props', props)
+  }
+
+  state = {
+    value: RTE.createEmptyValue()
+  }
+
+  static propTypes = {
+    onChange: React.PropTypes.func
+  }
+
+  onChange = (value) => {
+    this.setState({value})
+    if (this.props.onChange) {
+      this.props.onChange(
+        value.toString('html')
+      )
+    }
+    console.log(value.toString('markdown'))
+  }
+
   componentDidMount() {
     console.log('compose mounted')
   }
+  clickHandler() {
+    console.log('keyup')
+  }
   render() {
     return (
-      <div>
-        compose component
+      <div>compose
+        <RTE
+          value={this.state.value}
+          onChange={this.onChange}
+        />
       </div>
     )
   }
 }
 
-// try {
-//   if (window) {
-//     ReactDOM.render(<Compose/>, document.getElementById('compose'))
-//   }
-// }
-// catch(e) {
-
-// }
+ReactDOM.render(<Compose />, document.getElementById('compose'))
+          // <textarea onKeyUp={this.clickHandler} style={textareaStyle}></textarea>

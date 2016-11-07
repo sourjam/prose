@@ -12,7 +12,7 @@ export default ({ body, title, json }) => {
         <div id="read"></div>
         <div id="compose"></div>
       </body>
-      <script src="/bundle.js"></script>
+      <script src="/home.entry.js"></script>
       <script>
         localStorage.setItem('json', '${json}')
       </script>

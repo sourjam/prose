@@ -6,17 +6,17 @@ import Routes from './routes';
 export default <div>hi</div>
 
 
-let rootRoute = {
-  childRoutes: [{
-    path: '/',
-    component: require('./app/appComponent'),
-    childRoutes: [
-      require('./home/homeRoute'),
-      require('./read/readRoute'),
-      require('./compose/composeRoute')
-    ]
-  }]
-}
+// let rootRoute = {
+//   childRoutes: [{
+//     path: '/',
+//     component: require('./app/appComponent'),
+//     childRoutes: [
+//       require('./home/homeRoute'),
+//       require('./read/readRoute'),
+//       require('./compose/composeRoute')
+//     ]
+//   }]
+// }
 
 try {
   if (window) {
