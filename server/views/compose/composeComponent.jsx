@@ -1,49 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RTE from 'react-rte';
+// import RTE from 'react-rte';
+import {Editor, EditorState, RichUtils} from 'draft-js';
 
 console.log('compose')
 
-let textareaStyle = {
-  width: '50%',
-  height: '300px'
-}
-
-export default class Compose extends React.Component {
+export class Draft extends React.Component {
   constructor(props){
     super(props);
+    this.state = {editorState: EditorState.createEmpty()};
+    this.onChange = (editorState) => this.setState({editorState});
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
     console.log('props', props)
   }
 
-  state = {
-    value: RTE.createEmptyValue()
-  }
-
-  static propTypes = {
-    onChange: React.PropTypes.func
-  }
-
-  onChange = (value) => {
-    this.setState({value})
-    if (this.props.onChange) {
-      this.props.onChange(
-        value.toString('html')
-      )
+  handleKeyCommand(command) {
+    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
     }
-    console.log(value.toString('markdown'))
+    return 'not-handled';
+  }
+
+  _onBoldClick() {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
 
   componentDidMount() {
     console.log('compose mounted')
   }
   clickHandler() {
-    console.log('keyup')
+    console.log(this.state.editorState.getCurrentContent())
   }
   render() {
+    const {editorState} = this.state;
     return (
-      <div>compose
-        <RTE
-          value={this.state.value}
+      <div>
+        <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+        <button onClick={this.clickHandler.bind(this)}>EditorState</button>
+        <Editor
+          editorState={editorState}
+          handleKeyCommand={this.handleKeyCommand}
           onChange={this.onChange}
         />
       </div>
@@ -51,5 +49,39 @@ export default class Compose extends React.Component {
   }
 }
 
-ReactDOM.render(<Compose />, document.getElementById('compose'))
-          // <textarea onKeyUp={this.clickHandler} style={textareaStyle}></textarea>
+export default class Compose extends React.Component {
+  constructor() {
+    super();
+    this.state = {content: [
+      {text: 'Text'}, {text: 'goes'}, {text: '<b>here</b>'}
+    ]}
+  }
+
+  _onChange(e) {
+    let w = '';
+    let p = document.getElementById('prose').childNodes
+    p.forEach((node) => {
+      w += node.innerHTML + ' '
+    });
+
+    console.log('p', p, w)
+
+  }
+
+  render() {
+    let p = this.state.content.reduce((memo, val) => {
+      if (typeof memo === 'object') {
+        memo = memo.text
+      }
+      return memo = memo + ' ' + val.text;
+    })
+    console.log('memo', p)
+    return (
+      <div id="prose">
+        <span contentEditable="true" dangerouslySetInnerHTML={{__html: p}}></span>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<Compose />, document.getElementById('compose'));
