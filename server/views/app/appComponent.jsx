@@ -12,7 +12,7 @@ class App extends Component {
         <h2>App Component</h2>
         <Link to="/"> Home </Link>
         <Link to="/read">Read</Link>
-        <Link to="/compose">Compose</Link>
+        <a href="/compose/">Compose</a>
         { this.props.children }
       </div>
     )
