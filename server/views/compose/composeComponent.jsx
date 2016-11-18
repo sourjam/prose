@@ -5,18 +5,54 @@ import RTE from 'react-rte';
 
 console.log('compose')
 
-export class Editor extends React.Component {
+export class Well extends React.Component {
+  constructor(props) {
+    super(props)
+    let reg = /\<.>|<\/.>|\s/g
+    let wellArr = props.content.split(reg);
+    this.state = {
+      content: wellArr
+    }
+    console.log('well props', this.state)
+  }
+
+  makeWell(index) {
+    console.log(index, this.state.content[index])
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.content.map((val, index, arr) => {
+          return (
+            <span>
+              {val !== '' ?
+                <button onClick={this.makeWell.bind(this, index)}>{val}</button>
+                : null}
+            </span>
+          )
+        })}
+      </div>
+    )
+  }
+
+}
+
+export default class Editor extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func
   };
 
   state = {
+    init: [],
     value: RTE.createEmptyValue(),
+    testValue: RTE.createValueFromString('<p>hello there again</p><p>guess whos been</p>', 'html'),
     prose: true
   }
 
   onChange = (value) => {
     this.setState({value});
+      console.log('hi', value.toString('html'))
     if (this.props.onChange) {
       this.props.onChange(
         value.toString('html')
@@ -31,14 +67,17 @@ export class Editor extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.saveProse.bind(this)}>Save</button>
         <button onClick={this.swapMode.bind(this)}>Swap Mode</button>
         { this.state.prose === true ?
           <RTE
-            value={this.state.value}
-            onChange={this.onChange}
+            value={this.state.testValue}
+            onChange={this.onChange.bind(this)}
           />
           :
-          null
+          <div>
+            <Well content={this.state.testValue.toString('html')} />
+          </div>
         }
       </div>
     )

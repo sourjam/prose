@@ -1,5 +1,7 @@
 node_modules/
 client/
-bundle.js
+server/views/bundle.js
 1.bundle.js
 2.bundle.js
+compose.entry.js
+home.entry.js
