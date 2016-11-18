@@ -23,6 +23,7 @@ export class Well extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.props.saveWell}>Save Well</button>
         {this.state.content.map((val, index, arr) => {
           return (
             <span>
@@ -39,12 +40,16 @@ export class Well extends React.Component {
 }
 
 export default class Editor extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   static propTypes = {
     onChange: React.PropTypes.func
   };
 
   state = {
-    init: [],
+    well: null,
+    testInit: [{html: '<p>Hello'}, {html: 'my'}, {html: 'baby,</p>'}, {html: '<p>hello'}, {html: 'my'}, {html: 'honey!</p?'}],
     value: RTE.createEmptyValue(),
     testValue: RTE.createValueFromString('<p>hello there again</p><p>guess whos been</p>', 'html'),
     prose: true
@@ -52,7 +57,7 @@ export default class Editor extends React.Component {
 
   onChange = (value) => {
     this.setState({value});
-      console.log('hi', value.toString('html'))
+    console.log('hi', this.state.value)
     if (this.props.onChange) {
       this.props.onChange(
         value.toString('html')
@@ -60,23 +65,58 @@ export default class Editor extends React.Component {
     }
   }
 
+  convertProse(html) {
+    console.log('convert this', this.state.value.toString('html'))
+    let text = this.state.value.toString('html');
+    let well = [];
+    text = text.replace(/>/g, '>,').replace(/\s/g, ',');
+    console.log('replaced', text)
+    text = text.split(',');
+    console.log('new array', text)
+    text.forEach((val)=>{
+      well.push({html: val})
+    })
+    return well;
+  }
+
   swapMode() {
     this.setState({prose: !this.state.prose})
+    // create/convert prose to well
+
+
+  }
+
+  checkState() {
+    console.log(this.state)
+  }
+
+  saveProse() {
+    console.log(this.state.value.toString('html'))
+    //convert existing prose to well => replace previous well.
+    let well = this.convertProse();
+    console.log('converted', well)
+    this.setState({well: well})
+    console.log('new well', this.state)
+  }
+
+  saveWell() {
+    console.log('parent', this.state)
   }
 
   render() {
     return (
       <div>
+        <button onClick={this.checkState.bind(this)}>Check State</button>
         <button onClick={this.saveProse.bind(this)}>Save</button>
         <button onClick={this.swapMode.bind(this)}>Swap Mode</button>
         { this.state.prose === true ?
           <RTE
-            value={this.state.testValue}
+            value={this.state.value}
             onChange={this.onChange.bind(this)}
           />
           :
           <div>
-            <Well content={this.state.testValue.toString('html')} />
+            <Well saveWell={this.saveWell.bind(this)} content={this.state.value.toString('html')} />
           </div>
         }
       </div>
