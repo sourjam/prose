@@ -2,10 +2,89 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import RTE from 'react-rte';
 import Read from './readComponent'
-// import {Editor, EditorState, RichUtils} from 'draft-js';
 
-console.log('compose')
+export class Compose extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      blank: true,
+      PW: [],
+      value: null
+    }
+  }
 
+  checkState() {
+    console.log(this.state)
+  }
+
+  onChange = (value) => {
+    this.setState({value});
+    if (this.props.onChange) {
+      this.props.onChange(
+        value.toString('html')
+      )
+    }
+  }
+
+  componentWillMount() {
+    let path = window.location.pathname.split('/');
+    console.log(path)
+    if (path[path.length - 1] !== '') {
+      this.getPW()
+    } else {
+      let blankRTE = RTE.createEmptyValue();
+      this.setState({value: blankRTE})
+      console.log('loading blank')
+    }
+  }
+
+  getPW() {
+    // grabs PW from backend
+    console.log('grab existing')
+    let testPW = [
+      {html: '<p>Hello'},
+      {html: 'New'},
+      {html: 'York!</p>'}
+    ]
+    this.setState({PW: testPW}, this.setState({blank: false}))
+    let html = this.htmlFromPW(testPW);
+    html = RTE.createValueFromString(html, 'html');
+    this.setState({value: html})
+  }
+
+  savePW() {
+    // stores PW in backend
+  }
+
+  htmlFromPW(array) {
+    let string = '';
+
+    array.forEach((val,i) => {
+      string += val.html + ' '
+    })
+
+    return string;
+  }
+
+    render() {
+      return (
+        <div>
+          <button onClick={this.checkState.bind(this)}>Check State</button>
+          <br></br>
+          { this.state.blank ?
+            <RTE
+              value={this.state.value}
+              onChange={this.onChange.bind(this)}
+            /> :
+            <RTE
+              value={this.state.value}
+              onChange={this.onChange.bind(this)}
+            />
+          }
+        </div>
+      )
+    }
+}
 
 export class Well extends React.Component {
   constructor(props) {
@@ -21,7 +100,7 @@ export class Well extends React.Component {
 
   editWell(index) {
     console.log(index, this.state.content[index])
-    // this.setState({editWell: index})
+    this.setState({editWell: index})
   }
 
   render() {
@@ -136,5 +215,5 @@ export default class Editor extends React.Component {
     )
   }
 }
-
+ReactDOM.render(<Compose />, document.getElementById('precompose'))
 ReactDOM.render(<Editor />, document.getElementById('compose'));

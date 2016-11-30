@@ -19,6 +19,10 @@ app
     console.log('compose route')
     res.sendFile(path.join(__dirname, '/views/compose/composeTemplate.html'))
   })
+  .get('/compose/*', (req, res) => {
+    console.log('compose with path')
+    res.sendFile(path.join(__dirname, '/views/compose/composeTemplate.html'))
+  })
 // loading the hot-middleware
 
 app
